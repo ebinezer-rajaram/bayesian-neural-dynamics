@@ -1,11 +1,6 @@
 # Ramping or Stepping? Bayesian Model Selection for Neural Spike Trains
 
-This project uses hidden Markov models and Bayes factors to test whether decision-related neurons in macaque area LIP integrate evidence by ramping or jump in discrete steps, working from spike trains alone.
-
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-![NumPy / SciPy](https://img.shields.io/badge/NumPy%20%C2%B7%20SciPy-HMM%20inference-013243?logo=numpy&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-notebook-F37626?logo=jupyter&logoColor=white)
-![University of Cambridge · GG3](https://img.shields.io/badge/University%20of%20Cambridge-GG3-A3C1AD)
+This project uses hidden Markov models and Bayes factors to test whether decision-related neurons in macaque area LIP integrate evidence by ramping or jump in discrete steps, working from spike trains alone, and measures how reliably that inference recovers the true model on simulated data.
 
 <p align="center">
   <img src="assets/psth-ramp-vs-step.png" width="520" alt="Trial-averaged firing rates (PSTH) of the ramp and step models are almost identical over 5000 trials">
@@ -63,9 +58,9 @@ flowchart LR
 
 ```
 bayesian-neural-dynamics/
-├── GG3_project.ipynb   # all analysis: simulation, HMMs, inference, model selection, mismatch
-├── models.py           # StepModel / RampModel spike-train simulators (course-provided)
-└── inference.py        # Numba-JIT forward-backward, Viterbi, Poisson log-pdf (course-provided, after SSM)
+├── ramp_vs_step.ipynb  # all analysis: simulation, HMMs, inference, model selection, mismatch
+├── models.py           # StepModel / RampModel spike-train simulators (provided)
+└── inference.py        # Numba-JIT forward-backward, Viterbi, Poisson log-pdf (provided, after SSM)
 ```
 
 ## Reproducing
@@ -73,7 +68,7 @@ bayesian-neural-dynamics/
 ```bash
 uv run --with numpy --with scipy --with matplotlib --with numba --with scikit-learn \
        --with joblib --with tqdm --with tqdm-joblib --with requests --with jupyterlab \
-       jupyter lab GG3_project.ipynb
+       jupyter lab ramp_vs_step.ipynb
 ```
 
 Set `mode = "local"` in the import cells so that the bundled `models.py` and `inference.py` are used instead of being downloaded. The full model-selection sweep evaluates thousands of HMM likelihood grids. It uses all available cores (`n_jobs=-1`) and takes a while.
@@ -82,6 +77,6 @@ Set `mode = "local"` in the import cells so that the bundled `models.py` and `in
 
 Python 3.12 · NumPy · SciPy (`norm`, `logsumexp`) · Numba (JIT HMM kernels) · joblib (parallel sweeps) · scikit-learn (PCA) · Matplotlib · Jupyter
 
-## Context
+## Acknowledgements
 
-Part IIA project **GG3: Neural Data Analysis**, Engineering Tripos, University of Cambridge, Easter 2025. The project was led by Yashar Ahmadian. It is a joint project with [@ericyh](https://github.com/ericyh). The simulators (`models.py`), HMM inference kernels (`inference.py`, adapted from Linderman et al.'s [SSM](https://github.com/lindermanlab/ssm)) and task framing were provided by the course. The HMM formulations, inference and model-selection experiments in the notebook are our own work.
+Joint work with [@ericyh](https://github.com/ericyh). Originally developed for GG3 Neural Data Analysis, Department of Engineering, University of Cambridge (2025), led by Yashar Ahmadian, who provided the problem framing and background text, the simulators (`models.py`) and the HMM inference kernels (`inference.py`, adapted from Linderman et al.'s [SSM](https://github.com/lindermanlab/ssm)). The HMM formulations, inference and model-selection experiments in the notebook are our own work.
