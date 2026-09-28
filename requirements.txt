@@ -1,0 +1,10 @@
+numpy
+scipy
+matplotlib
+numba
+scikit-learn
+joblib
+tqdm
+tqdm-joblib
+requests
+jupyterlab
